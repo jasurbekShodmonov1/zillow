@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from Users.models import CustomUser
 
 class Property(models.Model):
     address = models.CharField(max_length=255)
@@ -22,7 +23,7 @@ class Listing(models.Model):
         ('sell', 'Sell'),
     ]
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
-    agent = models.ForeignKey(User, on_delete=models.CASCADE)
+    agent = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=0)
     transaction_type = models.CharField(max_length=4, choices=TRANSACTION_TYPE_CHOICES)
     list_date = models.DateTimeField(auto_now_add=True)
     is_published = models.BooleanField(default=False)
